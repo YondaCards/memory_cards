@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { CardForm } from '../components/CardForm'
+import { ImportForm } from '../components/ImportForm'
 
 export function DeckDetail() {
   const { deckId } = useParams()
@@ -56,7 +57,12 @@ export function DeckDetail() {
         <Link to={`/study/${deck.id}`}>Study this deck</Link>
       </p>
 
-      {isOwner && <CardForm deckId={deck.id} onAdded={load} />}
+      {isOwner && (
+        <>
+          <CardForm deckId={deck.id} onAdded={load} />
+          <ImportForm deckId={deck.id} onImported={load} />
+        </>
+      )}
 
       {cards.length === 0 && <p>No cards yet.</p>}
       <ul>
