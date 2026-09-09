@@ -106,7 +106,7 @@ export function Decks() {
               />
               Public
             </label>{' '}
-            <button onClick={() => deleteDeck(deck)}>Delete</button>
+            <button className="danger" onClick={() => deleteDeck(deck)}>Delete</button>
           </li>
         ))}
       </ul>

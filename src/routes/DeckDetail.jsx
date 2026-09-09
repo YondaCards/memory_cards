@@ -68,7 +68,11 @@ export function DeckDetail() {
         {cards.map((card) => (
           <li key={card.id}>
             <strong>{card.front}</strong> — {card.back}
-            {isOwner && <button onClick={() => deleteCard(card.id)}>Delete</button>}
+            {isOwner && (
+              <button className="danger" onClick={() => deleteCard(card.id)}>
+                Delete
+              </button>
+            )}
           </li>
         ))}
       </ul>

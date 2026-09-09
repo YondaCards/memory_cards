@@ -1,14 +1,321 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  --bg: #0f1115;
+  --bg-elevated: #1a1d24;
+  --bg-hover: #22262f;
+  --border: #2a2e37;
+  --text: #e6e8eb;
+  --text-muted: #9aa0ab;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --error: #f87171;
+  --success: #34d399;
+  --danger: #ef4444;
+  --grade-again: #ef4444;
+  --grade-hard: #f59e0b;
+  --grade-good: #22c55e;
+  --grade-easy: #6366f1;
+  --radius: 10px;
+  --radius-sm: 6px;
 }
 
-.App {
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1,
+h2 {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+p {
+  line-height: 1.5;
+}
+
+button {
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button.danger {
+  background: transparent;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+button.danger:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+input[type='text'],
+input:not([type]) {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.75rem;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--error);
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-sm);
+  margin: 0 0 1rem;
+}
+
+.status {
+  color: var(--success);
+  margin: 0.5rem 0 0;
+}
+
+/* Nav bar */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar a {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.navbar-user {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.navbar button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 0.4em 0.9em;
+}
+
+.navbar button:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+/* Page containers */
+
+.login-page,
+.decks-page,
+.deck-detail-page,
+.study-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.login-page {
+  text-align: center;
+  padding-top: 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.25rem;
+}
+
+.login-page h1 {
+  font-size: 2rem;
+}
+
+/* Decks page */
+
+.decks-page form {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.decks-page form input {
+  flex: 1;
+}
+
+.decks-page h2 {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-top: 2rem;
+}
+
+.decks-page li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+}
+
+.decks-page li:hover {
+  background: var(--bg-hover);
+}
+
+.decks-page li a:first-child {
+  font-weight: 600;
+  margin-right: auto;
+}
+
+.decks-page li label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Deck detail page */
+
+.card-form {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0;
+}
+
+.card-form input {
+  flex: 1;
+  min-width: 140px;
+}
+
+.import-form {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.import-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.deck-detail-page li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+}
+
+.deck-detail-page li strong {
+  color: var(--text);
+}
+
+/* Study page */
+
+.study-page {
+  text-align: center;
+}
+
+.study-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3rem 2rem;
+  margin: 1.5rem 0;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
+  gap: 1.25rem;
+}
+
+.study-card .front {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.study-card .back {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  margin: 0;
+}
+
+.grade-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.grade-buttons button {
+  flex: 1;
+}
+
+.grade-buttons button.grade-again {
+  background: var(--grade-again);
+}
+
+.grade-buttons button.grade-hard {
+  background: var(--grade-hard);
+}
+
+.grade-buttons button.grade-good {
+  background: var(--grade-good);
+}
+
+.grade-buttons button.grade-easy {
+  background: var(--grade-easy);
 }

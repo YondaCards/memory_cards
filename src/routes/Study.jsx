@@ -82,10 +82,10 @@ export function Study() {
         <button onClick={() => setShowBack(true)}>Show answer</button>
       ) : (
         <div className="grade-buttons">
-          <button onClick={() => grade('again')}>Again</button>
-          <button onClick={() => grade('hard')}>Hard</button>
-          <button onClick={() => grade('good')}>Good</button>
-          <button onClick={() => grade('easy')}>Easy</button>
+          <button className="grade-again" onClick={() => grade('again')}>Again</button>
+          <button className="grade-hard" onClick={() => grade('hard')}>Hard</button>
+          <button className="grade-good" onClick={() => grade('good')}>Good</button>
+          <button className="grade-easy" onClick={() => grade('easy')}>Easy</button>
         </div>
       )}
     </div>
