@@ -11,10 +11,20 @@ signed-in users can study it too (each user keeps their own progress).
    - Open the SQL Editor and run the contents of `supabase/schema.sql`.
    - Under Authentication → Providers, enable Google and follow Supabase's
      instructions to create a Google Cloud OAuth client.
-   - Under Authentication → URL Configuration, add your GitHub Pages URL
-     (e.g. `https://<username>.github.io/<repo>/`) and
-     `http://localhost:5173` to the allowed redirect URLs.
-   - Copy the project URL and anon key from Project Settings → API.
+   - Under Authentication → URL Configuration, set **Site URL** to your
+     deployed GitHub Pages URL (e.g. `https://<username>.github.io/<repo>/`).
+     Supabase falls back to this URL after sign-in if the redirect URL
+     doesn't exactly match an allow-listed entry, so leaving it at the
+     default `http://localhost:3000` will strand users there after Google
+     sign-in.
+   - In that same section, add `http://localhost:5173/**` and
+     `https://<username>.github.io/<repo>/**` (note the trailing `/**`
+     wildcard) to the allowed redirect URLs. The app always redirects back
+     with a trailing slash, so entries without the wildcard won't match.
+   - Copy the project URL and anon key from Project Settings → API. The
+     anon key is meant to be public — it's safe to commit and to bake into
+     a public build. Row-Level Security policies in `supabase/schema.sql`
+     are what actually protect the data, not the secrecy of this key.
 
 2. **Local development**
    - Copy `.env.example` to `.env.local` and fill in the Supabase URL and

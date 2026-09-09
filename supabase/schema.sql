@@ -34,20 +34,25 @@ alter table cards enable row level security;
 alter table card_progress enable row level security;
 
 -- decks: owner has full access; anyone signed in can read public decks
+drop policy if exists "decks_select" on decks;
 create policy "decks_select" on decks
   for select using (owner_id = auth.uid() or is_public = true);
 
+drop policy if exists "decks_insert" on decks;
 create policy "decks_insert" on decks
   for insert with check (owner_id = auth.uid());
 
+drop policy if exists "decks_update" on decks;
 create policy "decks_update" on decks
   for update using (owner_id = auth.uid());
 
+drop policy if exists "decks_delete" on decks;
 create policy "decks_delete" on decks
   for delete using (owner_id = auth.uid());
 
 -- cards: readable if the parent deck is owned by the caller or public;
 -- writable only if the parent deck is owned by the caller
+drop policy if exists "cards_select" on cards;
 create policy "cards_select" on cards
   for select using (
     exists (
@@ -57,30 +62,37 @@ create policy "cards_select" on cards
     )
   );
 
+drop policy if exists "cards_insert" on cards;
 create policy "cards_insert" on cards
   for insert with check (
     exists (select 1 from decks d where d.id = cards.deck_id and d.owner_id = auth.uid())
   );
 
+drop policy if exists "cards_update" on cards;
 create policy "cards_update" on cards
   for update using (
     exists (select 1 from decks d where d.id = cards.deck_id and d.owner_id = auth.uid())
   );
 
+drop policy if exists "cards_delete" on cards;
 create policy "cards_delete" on cards
   for delete using (
     exists (select 1 from decks d where d.id = cards.deck_id and d.owner_id = auth.uid())
   );
 
 -- card_progress: strictly per-user, regardless of who owns the deck
+drop policy if exists "progress_select" on card_progress;
 create policy "progress_select" on card_progress
   for select using (user_id = auth.uid());
 
+drop policy if exists "progress_insert" on card_progress;
 create policy "progress_insert" on card_progress
   for insert with check (user_id = auth.uid());
 
+drop policy if exists "progress_update" on card_progress;
 create policy "progress_update" on card_progress
   for update using (user_id = auth.uid());
 
+drop policy if exists "progress_delete" on card_progress;
 create policy "progress_delete" on card_progress
   for delete using (user_id = auth.uid());

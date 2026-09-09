@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import { useAuth } from '../context/AuthContext'
@@ -12,6 +12,12 @@ export function Study() {
   const [index, setIndex] = useState(0)
   const [showBack, setShowBack] = useState(false)
   const [saveError, setSaveError] = useState(null)
+
+  useEffect(() => {
+    setIndex(0)
+    setShowBack(false)
+    setSaveError(null)
+  }, [deckId])
 
   if (loading) {
     return <p>Loading…</p>

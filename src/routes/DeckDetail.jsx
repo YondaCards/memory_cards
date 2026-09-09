@@ -13,6 +13,7 @@ export function DeckDetail() {
   const [error, setError] = useState(null)
 
   async function load() {
+    setError(null)
     const [{ data: deckData, error: deckError }, { data: cardData, error: cardError }] =
       await Promise.all([
         supabase.from('decks').select('*').eq('id', deckId).single(),
@@ -41,9 +42,6 @@ export function DeckDetail() {
     load()
   }
 
-  if (error) {
-    return <p className="error">{error}</p>
-  }
   if (!deck) {
     return <p>Loading…</p>
   }
@@ -52,6 +50,7 @@ export function DeckDetail() {
 
   return (
     <div className="deck-detail-page">
+      {error && <p className="error">{error}</p>}
       <h1>{deck.name}</h1>
       <p>
         <Link to={`/study/${deck.id}`}>Study this deck</Link>

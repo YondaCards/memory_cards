@@ -11,6 +11,7 @@ export function Decks() {
   const [error, setError] = useState(null)
 
   async function loadDecks() {
+    setError(null)
     const [{ data: own, error: ownError }, { data: pub, error: pubError }] = await Promise.all([
       supabase
         .from('decks')
